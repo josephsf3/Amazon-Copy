@@ -1,4 +1,5 @@
 import {cart} from '../data/cart.js';
+import {products} from '../data/products.js';
 //Modules help us with naming conflicts and we dont have to worry about order of our files or script tags
 let productsHTML = '';
 
