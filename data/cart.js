@@ -22,3 +22,10 @@ export function  addToCart(productId) {
     });
     }
 }
+
+export function removeFromCart(productId) {
+    const index = cart.findIndex(cartItem => cartItem.productId === productId);
+    if (index !== -1) {
+        cart.splice(index, 1);
+    }
+}
