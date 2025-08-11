@@ -1,5 +1,6 @@
 import {cart, addToCart} from '../data/cart.js';
 import {products} from '../data/products.js';
+import {formatCurrency} from './utils/money.js';
 //Modules help us with naming conflicts and we dont have to worry about order of our files or script tags
 let productsHTML = '';
 
@@ -24,7 +25,7 @@ products.forEach(product => {
             </div>
 
             <div class="product-price">
-                $${(product.price / 100).toFixed(2)}
+                $${formatCurrency(product.price)}
             </div>
 
             <div class="product-quantity-container">
