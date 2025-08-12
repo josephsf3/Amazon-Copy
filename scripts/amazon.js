@@ -1,4 +1,4 @@
-import {cart, addToCart} from '../data/cart.js';
+import {cart, addToCart, updateCartQuantity} from '../data/cart.js';
 import {products} from '../data/products.js';
 import {formatCurrency} from './utils/money.js';
 //Modules help us with naming conflicts and we dont have to worry about order of our files or script tags
@@ -60,14 +60,10 @@ products.forEach(product => {
 let timeouts = {};
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
+updateCartQuantityHome();
 
-
-function updateCartQuantity() {
-    let cartQuantity = 0;
-    cart.forEach(cartItem => {
-        cartQuantity += cartItem.quantity;
-    });
-    document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+function updateCartQuantityHome() {
+    document.querySelector('.js-cart-quantity').innerHTML = updateCartQuantity();
 }
 
 function addedToCartDisplay(productId) {
@@ -86,7 +82,7 @@ document.querySelectorAll('.js-add-to-cart-button').forEach(button => {
     button.addEventListener('click', () => {
         const productId = button.dataset.productId;
         addToCart(productId);
-        updateCartQuantity();
+        updateCartQuantityHome();
         addedToCartDisplay(productId);   
     });
 });
