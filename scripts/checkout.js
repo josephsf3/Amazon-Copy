@@ -157,7 +157,7 @@ function updateEventListeners() {
                 updateContainer.querySelector('.js-save-link').addEventListener('click', () => {saveEventListeners(productId)});
                 updateContainer.querySelector(`.js-quantity-selector-save-${productId}`).addEventListener('keydown', (event) => {
                     if (event.key === 'Enter') {
-                        saveQuantity(productId);
+                        saveEventListeners(productId);
                     }
                 })
 
