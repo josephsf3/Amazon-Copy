@@ -3,6 +3,7 @@ import {getProduct} from '../../data/products.js';
 import {formatCurrency} from '../utils/money.js';
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
 import {deliveryOptions, getDeliveryOption} from '../../data/deliveryOptions.js'
+import {renderPaymentSummary} from "./paymentSummary.js";
 
 export function renderOrderSummary(){
         
@@ -80,6 +81,7 @@ export function renderOrderSummary(){
                     removeFromCart(productId);
                     document.querySelector(`.js-cart-item-container-${productId}`).remove();
                     updateCartQuantityCheckOut();
+                    renderPaymentSummary();
                 });
             });
     }
@@ -113,6 +115,7 @@ export function renderOrderSummary(){
             </span>`;
         updateEventListeners();
         deleteEventListeners();
+        renderPaymentSummary();
     }
 
     function updateEventListeners() {
@@ -123,7 +126,7 @@ export function renderOrderSummary(){
                     const updateContainer = document.querySelector(`.js-product-quantity-${productId}`);
                     updateContainer.innerHTML = 
                         `<span>
-                        Quantity: <input class = "js-quantity-selector-save-${productId}" style="width: 30px;">
+                        Quantity: <input class = "js-quantity-selector-save-${productId}" style="width: 30px;" autofocus >
                         <span class="save-quantity-link link-primary js-save-link" data-product-id="${productId}">Save</span>
                         </span>`;
 
@@ -178,6 +181,7 @@ export function renderOrderSummary(){
                 const {productId, deliveryOptionId} = element.dataset;
                 updateDeliveryOption(productId, deliveryOptionId)
                 renderOrderSummary();
+                renderPaymentSummary();
             });
     });
 }
