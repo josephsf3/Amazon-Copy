@@ -126,10 +126,11 @@ export function renderOrderSummary(){
                     const updateContainer = document.querySelector(`.js-product-quantity-${productId}`);
                     updateContainer.innerHTML = 
                         `<span>
-                        Quantity: <input class = "js-quantity-selector-save-${productId}" style="width: 30px;" autofocus >
+                        Quantity: <input class = "js-quantity-selector-save-${productId} css-qty-selector-save">
                         <span class="save-quantity-link link-primary js-save-link" data-product-id="${productId}">Save</span>
                         </span>`;
 
+                    updateContainer.querySelector(`.js-quantity-selector-save-${productId}`).focus()
                     updateContainer.querySelector('.js-save-link').addEventListener('click', () => {saveEventListeners(productId)});
                     updateContainer.querySelector(`.js-quantity-selector-save-${productId}`).addEventListener('keydown', (event) => {
                         if (event.key === 'Enter') {
