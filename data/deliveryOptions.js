@@ -19,7 +19,6 @@ export function getDeliveryDate(deliveryOption) {
     const today = dayjs();
     let countOfDays = 0;
     let daysRemaining = deliveryOption.deliveryDays;
-    console.log(daysRemaining)
 
     while (daysRemaining > 0) {
         countOfDays++;
@@ -34,7 +33,6 @@ export function getDeliveryDate(deliveryOption) {
 
     const deliveryDate = today.add(countOfDays, 'days');
     const dateString = deliveryDate.format('dddd, MMMM D');
-    console.log(dateString);
     return dateString;
 }
 
