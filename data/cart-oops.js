@@ -1,4 +1,4 @@
-function Cart(localStorageKey) {
+export function Cart(localStorageKey) {
     const cart = {
         cartItems : undefined,
         saveToStorage() {
@@ -40,7 +40,7 @@ function Cart(localStorageKey) {
             });
             return cartQuantity;
         },
-        fupdateDeliveryOption (productId, deliveryOptionId) {
+        updateDeliveryOption (productId, deliveryOptionId) {
             let matchingItem;
             this.cartItems.forEach(cartItem => {
                 if (cartItem.productId === productId) {
