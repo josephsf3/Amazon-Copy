@@ -3,6 +3,8 @@ import {getProduct, loadProductsFetch} from '../data/products.js';
 import {formatCurrency} from './utils/money.js';
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
 import {addToCartFromOrders,updateCartQuantity} from '../data/cart.js';
+
+
 function timeConversion(time) {
   return dayjs(time).format('MMMM D');
 }
@@ -90,6 +92,10 @@ loadProductsFetch().then(() => {
     });
 });
 
-
+document.querySelector('.js-search-button')
+    .addEventListener('click', () => {
+      const query = encodeURIComponent(document.querySelector('.js-search-bar').value);
+      window.location.href = `amazon.html?search=${query}`;
+    });
 
 

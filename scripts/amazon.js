@@ -92,3 +92,9 @@ function renderProductsGrid () {
     });
 
 }
+document.querySelector('.js-search-button')
+    .addEventListener('click', () => {
+      const query = encodeURIComponent(document.querySelector('.js-search-bar').value);
+      window.location.href = `amazon.html?search=${query}`;
+    });
+
