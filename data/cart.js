@@ -62,3 +62,22 @@ export function loadCart (fun) {
   xhr.open('GET', 'https://supersimplebackend.dev/cart');
   xhr.send();
 }
+
+export function addToCartFromOrders(productId, selectedQuantity) {
+    let matchingItem;
+    cart.forEach(cartItem => {
+        if (cartItem.productId === productId) {
+            matchingItem = cartItem;
+        }
+    });
+    if (matchingItem) {
+        matchingItem.quantity += selectedQuantity;;
+    } else {
+    cart.push({
+        productId: productId,
+        quantity: selectedQuantity,
+        deliveryOptionId : '1'
+    });
+    }
+    saveToStorage();
+}
