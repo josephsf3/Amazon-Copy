@@ -157,3 +157,10 @@
 .css-added-to-cart-visible {
   opacity: 1;
 }
+
+.css-no-products {
+  padding: 30px;
+  font-size: 30px;
+  color: lightgray;
+  text-align: center;
+}

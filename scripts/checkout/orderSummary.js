@@ -57,8 +57,15 @@ export function renderOrderSummary(){
             </div>`
     });
 
+    if (cartSummaryHTML) {
+        document.querySelector('.js-order-summary').innerHTML = cartSummaryHTML;
+        document.querySelector('.js-empty-cart').style.display = 'none';
+    } else {
+        document.querySelector('.js-order-summary').innerHTML = '';
+        document.querySelector('.js-empty-cart').style.display = 'block';
+    }
 
-    document.querySelector('.js-order-summary').innerHTML = cartSummaryHTML;
+
     function deleteEventListeners() {
         document.querySelectorAll('.js-delete-link')
             .forEach((link) => {

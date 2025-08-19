@@ -1,4 +1,4 @@
-export const cart = JSON.parse(localStorage.getItem('cart')) || [];
+export let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
 export function saveToStorage() {
     localStorage.setItem('cart', JSON.stringify(cart));
@@ -55,7 +55,6 @@ export function updateDeliveryOption (productId, deliveryOptionId) {
 export function loadCart (fun) {
   const xhr = new XMLHttpRequest();
   xhr.addEventListener('load', () => {
-    console.log(xhr.response);
     fun();
   })
   
@@ -79,5 +78,10 @@ export function addToCartFromOrders(productId, selectedQuantity) {
         deliveryOptionId : '1'
     });
     }
+    saveToStorage();
+}
+
+export function cartReset() {
+    cart = [];
     saveToStorage();
 }

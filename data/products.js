@@ -17,12 +17,14 @@ class Product {
   name;
   rating;
   price;
+  keywords;
   constructor(productDetails) {
     this.id = productDetails.id;
     this.image = productDetails.image;
     this.name =  productDetails.name;
     this.rating = productDetails.rating;
     this.price = productDetails.priceCents;
+    this.keywords = productDetails.keywords;
   }
 
   getStarsUrl () {
@@ -92,7 +94,7 @@ export function loadProductsFetch() {
   return promise;
 }
 
-
+/*
 export function loadProducts (fun) {
   const xhr = new XMLHttpRequest();
   xhr.addEventListener('load', () => {
@@ -111,7 +113,7 @@ export function loadProducts (fun) {
   xhr.open('GET', 'https://supersimplebackend.dev/products');
   xhr.send();
 }
-
+*/
 
 /*
 export const products = [

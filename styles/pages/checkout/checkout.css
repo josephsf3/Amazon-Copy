@@ -213,3 +213,9 @@
 .css-qty-selector-save {
   width : 30px;
 }
+.js-empty-cart {
+  font-size: 30px;
+  text-align: center;
+  padding: 30px;
+  color: lightgray;
+}
