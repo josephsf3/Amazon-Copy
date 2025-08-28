@@ -59,7 +59,7 @@ loadProductsFetch().then(() => {
             </a>
 
             <div class="delivery-date">
-            Arriving on ${timeConversion(matchingOrder.estimatedDeliveryTime)}
+            Arriving on ${timeConversion(productInOrder.estimatedDeliveryTime)}
             </div>
 
             <div class="product-info">
