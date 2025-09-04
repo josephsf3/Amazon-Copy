@@ -1,10 +1,36 @@
 export let cart = JSON.parse(localStorage.getItem('cart')) || [];
+// export let cart = [];
 
-export function saveToStorage() {
+// async function loadingCart() {
+//     try {
+//         const response = await fetch('/api/cart');
+//         if (!response.ok) {
+//             throw new Error('Failed to fetch cart');
+//         }
+//         cart = await response.json();
+//         return cart;
+//     } catch (err) {
+//         console.error('Error loading cart:', err);
+//         cart = [];
+//         return cart;
+//     }
+// }
+
+// loadingCart();
+
+export async function saveToStorage() {
     localStorage.setItem('cart', JSON.stringify(cart));
+    const response = await fetch('/api/cart', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(cart)
+    });
+    const test = await response.text();
 }
 
-export function  addToCart(productId) {
+export function addToCart(productId) {
     let matchingItem;
     cart.forEach(cartItem => {
         if (cartItem.productId === productId) {
@@ -15,11 +41,11 @@ export function  addToCart(productId) {
     if (matchingItem) {
         matchingItem.quantity += selectedQuantity;;
     } else {
-    cart.push({
-        productId: productId,
-        quantity: selectedQuantity,
-        deliveryOptionId : '1'
-    });
+        cart.push({
+            productId: productId,
+            quantity: selectedQuantity,
+            deliveryOptionId: '1'
+        });
     }
     saveToStorage();
 }
@@ -40,7 +66,7 @@ export function updateCartQuantity() {
     return cartQuantity;
 }
 
-export function updateDeliveryOption (productId, deliveryOptionId) {
+export function updateDeliveryOption(productId, deliveryOptionId) {
     let matchingItem;
     cart.forEach(cartItem => {
         if (cartItem.productId === productId) {
@@ -52,14 +78,14 @@ export function updateDeliveryOption (productId, deliveryOptionId) {
     saveToStorage();
 }
 
-export function loadCart (fun) {
-  const xhr = new XMLHttpRequest();
-  xhr.addEventListener('load', () => {
-    fun();
-  })
-  
-  xhr.open('GET', 'https://supersimplebackend.dev/cart');
-  xhr.send();
+export function loadCart(fun) {
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', () => {
+        fun();
+    })
+
+    xhr.open('GET', 'https://supersimplebackend.dev/cart');
+    xhr.send();
 }
 
 export function addToCartFromOrders(productId, selectedQuantity) {
@@ -72,11 +98,11 @@ export function addToCartFromOrders(productId, selectedQuantity) {
     if (matchingItem) {
         matchingItem.quantity += selectedQuantity;;
     } else {
-    cart.push({
-        productId: productId,
-        quantity: selectedQuantity,
-        deliveryOptionId : '1'
-    });
+        cart.push({
+            productId: productId,
+            quantity: selectedQuantity,
+            deliveryOptionId: '1'
+        });
     }
     saveToStorage();
 }
