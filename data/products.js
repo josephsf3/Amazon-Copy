@@ -75,7 +75,26 @@ class Appliances extends Product{
 
 export let products = [];
 
-export function loadProductsFetch() {
+export async function loadProductsFetch() {
+  try{
+  const response = await fetch('/api/products');
+  const data = await response.json();
+  products = data.map((productDetails) => {
+    if (productDetails.type === 'clothing') {
+      return new Clothing(productDetails);
+    }
+    if (productDetails.type === 'appliance') {
+      return new Appliances(productDetails);
+    }
+    return new Product(productDetails);
+  });
+  } catch (err){
+    console.log(err);
+  }
+}
+
+
+/* export function loadProductsFetch() {
   const promise = fetch('/api/products').then((response) => {
     return response.json();
   }).then((productsData) => {
@@ -92,7 +111,7 @@ export function loadProductsFetch() {
       console.log('Error');
   });
   return promise;
-}
+} */
 
 /*
 export function loadProducts (fun) {
