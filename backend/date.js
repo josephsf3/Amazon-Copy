@@ -1,24 +1,19 @@
-import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
-
-export function getDeliveryOption(deliveryOptionId) {
-    let deliveryOption;
-    deliveryOptions.forEach((option) => {
-        if (option.id === deliveryOptionId) {
-            deliveryOption = option;
-        }
-    });
-    return deliveryOption || deliveryOptions[0];
-}
+import dayjs from 'dayjs';
 
 function isWeekend(day) {
     return day === 'Saturday' || day === 'Sunday'
 }
 
 
-export function getDeliveryDate(deliveryOption) {
+export function getDeliveryDateBackend(deliveryOption) {
     const today = dayjs();
     let countOfDays = 0;
-    let daysRemaining = deliveryOption.deliveryDays;
+    let daysRemaining;
+    deliveryOptions.forEach((option)=>{
+        if (option.id === deliveryOption) {
+            daysRemaining = option.deliveryDays;
+        }
+    });
 
     while (daysRemaining > 0) {
         countOfDays++;
@@ -32,8 +27,7 @@ export function getDeliveryDate(deliveryOption) {
     }
 
     const deliveryDate = today.add(countOfDays, 'days');
-    const deliveryString = deliveryDate.format('dddd, MMMM D');
-    return deliveryString;
+    return deliveryDate;
 }
 
 
