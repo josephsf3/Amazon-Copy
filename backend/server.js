@@ -26,7 +26,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/amazon.html', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '..', 'index.html'));
+    res.sendFile(path.join(__dirname, '..', '/frontend/index.html'));
 })
 
 app.get('/api/products', (req, res) => {
