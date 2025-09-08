@@ -5,24 +5,24 @@ import { connectDB } from './DB/db.js';
 import Order from './DB/models/ordersdb.js';
 import { readFileSync, writeFileSync } from 'fs';
 import { fileURLToPath } from 'url';
-import { formatCart, calculateCost } from './orderFormat.js';
+import { formatCart, calculateCost } from './scripts/formatCalculate.js';
 
 
 
 
 let cart = [];
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const products = JSON.parse(readFileSync(path.join(__dirname, '/products.json')).toString());
+const products = JSON.parse(readFileSync(path.join(__dirname, '/data/products.json')).toString());
 
 const app = express();
 
 app.use(express.json())
-app.use(express.static(path.join(__dirname, '..')))
+app.use(express.static(path.join(__dirname, '../frontend')))
 
 await connectDB();
 
 app.get('/', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '..', 'index.html'));
+    res.sendFile(path.resolve(__dirname, '..', '/frontend/index.html'));
 })
 
 app.get('/amazon.html', (req, res) => {

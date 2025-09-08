@@ -1,4 +1,4 @@
-import { getDeliveryDateBackend, deliveryOptions } from "./date.js";
+import { getDeliveryDateBackend, deliveryOptions } from "./delivery.js";
 
 export function formatCart(cartItem) {
     const productId = cartItem.productId;
