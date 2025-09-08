@@ -1,8 +1,8 @@
 import express from 'express';
 import path from 'path';
 import dayjs from 'dayjs';
-import { connectDB } from './DB/db.js';
-import Order from './DB/models/ordersdb.js';
+import { connectDB } from './database/db.js';
+import Order from './database/models/ordersdb.js';
 import { readFileSync, writeFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { formatCart, calculateCost } from './scripts/formatCalculate.js';
