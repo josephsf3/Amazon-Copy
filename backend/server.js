@@ -3,14 +3,13 @@ import path from 'path';
 import dayjs from 'dayjs';
 import { connectDB } from './database/db.js';
 import Order from './database/models/ordersdb.js';
+import Cart from './database/models/cartdb.js';
 import { readFileSync, writeFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { formatCart, calculateCost } from './scripts/formatCalculate.js';
 
 
 
-
-let cart = [];
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const products = JSON.parse(readFileSync(path.join(__dirname, '/data/products.json')).toString());
 
@@ -33,21 +32,11 @@ app.get('/api/products', (req, res) => {
     res.json(products);
 })
 
-app.post('/api/cart', (req, res) => {
-    cart = req.body || [];
-    writeFileSync('./cart.json', JSON.stringify(cart));
-    res.json({ success: true })
-})
-
-app.get('/api/cart', (req, res) => {
-    res.json(cart)
-})
 
 app.post('/api/orders', async (req, res) => {
     try {
         const data = req.body.cart.map(cartItem => formatCart(cartItem));
         let totalCostCents = calculateCost(data, products);
-        console.log(totalCostCents);
         const order = new Order({
             products: data,
             orderTime: dayjs(),
@@ -67,6 +56,33 @@ app.post('/api/orders', async (req, res) => {
     }
 
 })
+
+app.get('/api/cart', async (req, res) => {
+    try {
+        const items = await Cart.find();
+        return res.json(items);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+app.post('/api/cart', async (req, res) => {
+    try {
+        const data = req.body;
+        const cartItem = new Cart({
+            productId: data.productId,
+            quantity: data.quantity,
+            deliveryOption: data.deliveryOption
+        });
+        const savedCart = await cartItem.save();
+        return res.json({
+            productId: savedCart.productId,
+            quantity: savedCart.quantity,
+            deliveryOption: savedCart.deliveryOption
+        });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
 
 app.listen(4090, () => {
     console.log('Server is Running');

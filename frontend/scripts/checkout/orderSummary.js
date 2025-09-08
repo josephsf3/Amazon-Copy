@@ -5,6 +5,7 @@ import {deliveryOptions, getDeliveryOption, getDeliveryDate} from '../../data/de
 import {renderPaymentSummary} from "./paymentSummary.js";
 import { renderCheckoutHeader } from './checkoutHeader.js';
 
+
 export function renderOrderSummary(){
         
     let cartSummaryHTML = '';

@@ -1,5 +1,6 @@
 import { updateCartQuantity } from "../../data/cart.js";
 
+
 export function renderCheckoutHeader() {
     const cartQuantity = updateCartQuantity();
     document.querySelector('.js-header-content')

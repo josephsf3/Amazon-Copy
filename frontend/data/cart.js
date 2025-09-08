@@ -1,33 +1,26 @@
-export let cart = JSON.parse(localStorage.getItem('cart')) || [];
-// export let cart = [];
+// export let cart = JSON.parse(localStorage.getItem('cart')) || [];
+export let cart = [];
 
-// async function loadingCart() {
-//     try {
-//         const response = await fetch('/api/cart');
-//         if (!response.ok) {
-//             throw new Error('Failed to fetch cart');
-//         }
-//         cart = await response.json();
-//         return cart;
-//     } catch (err) {
-//         console.error('Error loading cart:', err);
-//         cart = [];
-//         return cart;
-//     }
-// }
+export async function loadCart() {
+    try {
+        const response = await fetch('/api/cart');
+        if (!response.ok) {
+            throw new Error('Failed to fetch cart');
+        }
+        const data = await response.json();
+        cart = data;
+        console.log(cart);
+        saveToStorage();
+        
+    } catch (err) {
+        console.error('Error loading cart:', err);
+        cart = JSON.parse(localStorage.getItem('cart')) || [];
+    }
+}
 
-// loadingCart();
 
 export async function saveToStorage() {
     localStorage.setItem('cart', JSON.stringify(cart));
-    const response = await fetch('/api/cart', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(cart)
-    });
-    const test = await response.text();
 }
 
 export function addToCart(productId) {
@@ -78,15 +71,6 @@ export function updateDeliveryOption(productId, deliveryOptionId) {
     saveToStorage();
 }
 
-export function loadCart(fun) {
-    const xhr = new XMLHttpRequest();
-    xhr.addEventListener('load', () => {
-        fun();
-    })
-
-    xhr.open('GET', 'https://supersimplebackend.dev/cart');
-    xhr.send();
-}
 
 export function addToCartFromOrders(productId, selectedQuantity) {
     let matchingItem;
