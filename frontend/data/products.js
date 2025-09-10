@@ -75,9 +75,15 @@ class Appliances extends Product{
 
 export let products = [];
 
-export async function loadProductsFetch() {
+export async function loadProductsFetch(search="") {
   try{
-  const response = await fetch('/api/products');
+    let url;
+    if (search) {
+      url = `/api/search?q=${search}`;
+    } else {
+      url = "/api/products"
+    }
+  const response = await fetch(url);
   const data = await response.json();
   products = data.map((productDetails) => {
     if (productDetails.type === 'clothing') {

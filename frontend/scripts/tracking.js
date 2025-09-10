@@ -98,14 +98,13 @@ loadProductsFetch().then(() => {
 
 document.querySelector('.js-search-button')
     .addEventListener('click', () => {
-      const query = encodeURIComponent(document.querySelector('.js-search-bar').value);
-      window.location.href = `amazon.html?search=${query}`;
+        const query = encodeURIComponent(document.querySelector('.js-search-bar').value);
+        window.location.href = `index.html?search=${query}`;
     });
-
 document.querySelector('.js-search-bar')
-.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') {
-    const query = encodeURIComponent(document.querySelector('.js-search-bar').value);
-    window.location.href = `amazon.html?search=${query}`;
-    }
-});
+    .addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            const query = encodeURIComponent(document.querySelector('.js-search-bar').value);
+            window.location.href = `index.html?search=${query}`;
+        }
+    });

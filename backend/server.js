@@ -7,6 +7,7 @@ import Cart from './database/models/cartdb.js';
 import { readFileSync, writeFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { formatCart, calculateCost } from './scripts/formatCalculate.js';
+import Product from './database/models/productdb.js';
 
 
 
@@ -28,9 +29,28 @@ app.get('/amazon.html', (req, res) => {
     res.sendFile(path.join(__dirname, '..', '/frontend/index.html'));
 })
 
-app.get('/api/products', (req, res) => {
+app.get('/api/products', async (req, res) => {
+    const products = await Product.find().lean();
     res.json(products);
 })
+
+app.get("/api/search", async (req, res) => {
+  try {
+    const query = req.query.q || "";
+    const words = query.toLowerCase().split(" ");
+
+    const products = await Product.find({
+      $or: [
+        { name: { $regex: query, $options: "i" } },
+        { keywords: { $in: words } }
+      ]
+    }).lean();
+
+    res.json(products);
+  } catch (err) {
+    res.status(500).json({ error: "Search failed" });
+  }
+});
 
 
 app.post('/api/orders', async (req, res) => {

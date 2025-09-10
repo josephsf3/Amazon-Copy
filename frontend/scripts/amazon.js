@@ -1,6 +1,6 @@
-import {cart, addToCart, updateCartQuantity} from '../data/cart.js';
-import {products, loadProductsFetch} from '../data/products.js';
-import {formatCurrency} from './utils/money.js';
+import { cart, addToCart, updateCartQuantity } from '../data/cart.js';
+import { products, loadProductsFetch } from '../data/products.js';
+import { formatCurrency } from './utils/money.js';
 //Modules help us with naming conflicts and we dont have to worry about order of our files or script tags
 
 function renderComponents(product) {
@@ -56,26 +56,19 @@ function renderComponents(product) {
         `
     return productInfo;
 }
+const url = new URL(window.location.href);
+let search = url.searchParams.get('search');
+if (search) {
+    document.querySelector('.js-search-bar').value = decodeURIComponent(search);
+}
 
-loadProductsFetch().then(() => {
+loadProductsFetch(search).then(() => {
     let productsHTML = '';
-    const url = new URL(window.location.href);
-    let search = url.searchParams.get('search');
-    if (search) {
-        search = decodeURIComponent(search);
-        document.querySelector('.js-search-bar').value = search;
-        search = search.toLowerCase().split(" ");
-        products.forEach(product => {
-            if (search.some(word => product.name.toLowerCase().includes(word) || product.keywords.includes(word))) {
-                productsHTML += renderComponents(product);
-            }
+
+    products.forEach(product => {
+        productsHTML += renderComponents(product);
     });
-    }
-    else {
-        products.forEach(product => {
-            productsHTML += renderComponents(product);
-        });
-    }
+
     let timeouts = {};
     if (productsHTML) {
         document.querySelector('.js-products-grid').innerHTML = productsHTML;
@@ -108,20 +101,20 @@ loadProductsFetch().then(() => {
             const productId = button.dataset.productId;
             addToCart(productId);
             updateCartQuantityHome();
-            addedToCartDisplay(productId);   
+            addedToCartDisplay(productId);
         });
     });
 });
 
 document.querySelector('.js-search-button')
     .addEventListener('click', () => {
-      const query = encodeURIComponent(document.querySelector('.js-search-bar').value);
-      window.location.href = `amazon.html?search=${query}`;
+        const query = encodeURIComponent(document.querySelector('.js-search-bar').value);
+        window.location.href = `index.html?search=${query}`;
     });
 document.querySelector('.js-search-bar')
-.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') {
-    const query = encodeURIComponent(document.querySelector('.js-search-bar').value);
-    window.location.href = `amazon.html?search=${query}`;
-    }
-});
+    .addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            const query = encodeURIComponent(document.querySelector('.js-search-bar').value);
+            window.location.href = `index.html?search=${query}`;
+        }
+    });
