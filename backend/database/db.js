@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const MONGO_URI = 'mongodb://localhost:27017/Amazon';
+const MONGO_URI = 'mongodb+srv://Amazon:Amazon@josephscluster.esvg4gs.mongodb.net/Amazon';
 
 export async function connectDB() {
   try {

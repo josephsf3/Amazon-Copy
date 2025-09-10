@@ -1,22 +1,22 @@
-// export let cart = JSON.parse(localStorage.getItem('cart')) || [];
-export let cart = [];
+export let cart = JSON.parse(localStorage.getItem('cart')) || [];
+// export let cart = [];
 
-export async function loadCart() {
-    try {
-        const response = await fetch('/api/cart');
-        if (!response.ok) {
-            throw new Error('Failed to fetch cart');
-        }
-        const data = await response.json();
-        cart = data;
-        console.log(cart);
-        saveToStorage();
+// export async function loadCart() {
+//     try {
+//         const response = await fetch('/api/cart');
+//         if (!response.ok) {
+//             throw new Error('Failed to fetch cart');
+//         }
+//         const data = await response.json();
+//         cart = data;
+//         console.log(cart);
+//         saveToStorage();
         
-    } catch (err) {
-        console.error('Error loading cart:', err);
-        cart = JSON.parse(localStorage.getItem('cart')) || [];
-    }
-}
+//     } catch (err) {
+//         console.error('Error loading cart:', err);
+//         cart = JSON.parse(localStorage.getItem('cart')) || [];
+//     }
+// }
 
 
 export async function saveToStorage() {
